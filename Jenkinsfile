@@ -13,13 +13,11 @@ pipeline {
        steps {
          withCredentials([usernamePassword(credentialsId: 'testci', passwordVariable: 'pass', usernameVariable: 'user')]) {
                    
-                sh 'echo "creating folder"'      
-                sh 'cd /var/www/'
-		sh 'mkdir test'
-                sh 'echo "copying file in folder"'
-                sh 'cp index.html /var/www/test'
-                sh 'echo "restart apache service"'
-                sh 'sudo systemctl restart apache2'
+                sh 'echo "creating folder"' 
+		sh 'ssh ubuntu@ec2-54-244-81-128.us-west-2.compute.amazonaws.com 'nohup mkdir -p /var/www/testci'  	  
+                sh 'scp index.html  ubuntu@ec2-54-244-81-128.us-west-2.compute.amazonaws.com:/var/www/testci'
+                sh 'echo "restarting apache service"'
+                sh "ssh ubuntu@ec2-54-244-81-128.us-west-2.compute.amazonaws.com 'sudo systemctl restart apache2' "
         }
        }	 
      }
