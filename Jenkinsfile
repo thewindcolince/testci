@@ -14,7 +14,8 @@ pipeline {
          withCredentials([usernamePassword(credentialsId: 'testci', passwordVariable: 'pass', usernameVariable: 'user')]) {
                    
                 sh 'echo "creating folder"'      
-            		sh 'cd /var/www && mkdir test'
+                sh 'cd /var/www/'
+		sh 'mkdir test'
                 sh 'echo "copying file in folder"'
                 sh 'cp index.html /var/www/test'
                 sh 'echo "restart apache service"'
