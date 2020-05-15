@@ -11,7 +11,9 @@ pipeline {
      stage('deploy to ecs') {
          agent any
        	 steps {
-        	 withCredentials(credentials:'testci') {
+           #withCredentials([usernamePassword(credentialsId: 'hello-kb', passwordVariable: 'pass', usernameVariable: 'user')]) {
+
+        	 withCredentials(credentialsId:'testci') {
             		sh 'cd /var/www && mkdir test'
                 sh 'cp index.html /var/www/test'
                 sh 'sudo systemctl restart apache2'
